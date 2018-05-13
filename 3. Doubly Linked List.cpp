@@ -118,7 +118,7 @@ void displayReverse(DoublyLinkedList* list)
 	}
 }
 
-void destroyList(DoublyLinkedList* &list)
+void destroyList(DoublyLinkedList* &list, DoublyLinkedList* &endList)
 {
 	while (list)
 	{
@@ -129,7 +129,8 @@ void destroyList(DoublyLinkedList* &list)
 		list = temp;
 	}
 
-	if (list == 0)
+	endList = 0;
+	if (list == 0 && endList == 0)
 	{
 		cout << "\ndestroyList: List successfully destroyed!" << endl;
 	}
@@ -153,6 +154,6 @@ void main()
 	display(list);
 	cout << endl << endl;
 	displayReverse(endList);
-	destroyList(list);
+	destroyList(list, endList);
 	getch();
 }
