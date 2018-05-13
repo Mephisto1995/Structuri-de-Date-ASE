@@ -5,6 +5,8 @@ using namespace std;
 
 #pragma warning(disable:4996)
 
+fstream file("Student.txt", ios::in);
+
 class Student
 {
 public:
@@ -36,7 +38,7 @@ public:
 	}
 };
 
-void add(SimpleLinkedList* &list, Student s)
+void insert(SimpleLinkedList* &list, Student s)
 {
 	SimpleLinkedList* temp = new SimpleLinkedList();
 	temp->s = s;
@@ -57,40 +59,27 @@ void add(SimpleLinkedList* &list, Student s)
 	}
 }
 
-void populateStudent(SimpleLinkedList* &list, Student s)
+void readFromFile(Student &s)
 {
-	fstream file("Student.txt", ios::in);
-	if (file.is_open())
+	char buffer[256];
+	file >> s.id;
+	file >> buffer;
+	s.name = new char[strlen(buffer) + 1];
+	strcpy(s.name, buffer);
+	file >> s.average;
+	file >> s.sizeMarks;
+	if (s.sizeMarks > 0)
 	{
-		while (!file.eof())
+		s.marks = new int[s.sizeMarks];
+		for (int i = 0; i < s.sizeMarks; i++)
 		{
-			char buffer[256];
-			file >> s.id;
-			file >> buffer;
-			s.name = new char[strlen(buffer) + 1];
-			strcpy(s.name, buffer);
-			file >> s.average;
-			file >> s.sizeMarks;
-			if (s.sizeMarks > 0)
-			{
-				s.marks = new int[s.sizeMarks];
-				for (int i = 0; i < s.sizeMarks; i++)
-				{
-					file >> s.marks[i];
-				}
-			}
-			else
-			{
-				// Do nothing
-			}
-
-			add(list, s);
+			file >> s.marks[i];
 		}
 	}
 	else
 	{
-		cout << "populateStudent: Error reading file!" << endl;
-	}	
+		// Do nothing
+	}
 }
 
 void display(SimpleLinkedList* list)
@@ -137,7 +126,12 @@ void main()
 	Student s;
 	SimpleLinkedList* list = 0;
 
-	populateStudent(list, s);
+	while (!file.eof())
+	{
+		readFromFile(s);
+		insert(list, s);
+	}
+
 	display(list);
 	destroyList(list);
 	getch();
