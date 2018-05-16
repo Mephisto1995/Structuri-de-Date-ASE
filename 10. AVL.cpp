@@ -193,22 +193,22 @@ void addToAVL(Node* &root, Student s)
 	root = insert(root, s);
 	calculBF(root);
 
-	if (root->bf == 2 && root->right->bf == 1)
+	if (root->bf >= 2 && root->right->bf >= 1)
 	{
 		leftRotation(root);
 		calculBF(root);
 	}
-	else if (root->bf == 2 && root->right->bf == -1)
+	else if (root->bf >= 2 && root->right->bf <= -1)
 	{
 		rightLeftRotation(root);
 		calculBF(root);
 	}
-	else if (root->bf == -2 && root->left->bf == -1)
+	else if (root->bf <= -2 && root->left->bf <= -1)
 	{
 		rightRotation(root);
 		calculBF(root);
 	}
-	else if (root->bf == -2 && root->left->bf == 1)
+	else if (root->bf <= -2 && root->left->bf >= 1)
 	{
 		leftRightRotation(root);
 		calculBF(root);
