@@ -188,7 +188,7 @@ void destroy(HashTable& table)
 
 	if (table.arrayOfNodes == 0 && table.keys == 0)
 	{
-		cout << "\ndestroy: HashTabel successfully destroyed!";
+		cout << "\ndestroy: HashTable successfully destroyed!";
 	}
 	else
 	{
