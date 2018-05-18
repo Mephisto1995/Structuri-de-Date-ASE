@@ -10,10 +10,10 @@ fstream file("Student.txt", ios::in);
 class Student
 {
 public:
-	int id;
+	size_t id;
 	char* name;
 	float average;
-	int sizeMarks;
+	size_t sizeMarks;
 	int* marks;
 
 	Student()
@@ -71,7 +71,7 @@ void readFromFile(Student &s)
 	if (s.sizeMarks > 0)
 	{
 		s.marks = new int[s.sizeMarks];
-		for (int i = 0; i < s.sizeMarks; i++)
+		for (size_t i = 0; i < s.sizeMarks; i++)
 		{
 			file >> s.marks[i];
 		}
