@@ -10,10 +10,10 @@ fstream file("StudentBST.txt", ios::in);
 class Student
 {
 public:
-	int id;
+	size_t id;
 	char* name;
 	float average;
-	int sizeMarks;
+	size_t sizeMarks;
 	int* marks;
 
 	Student()
@@ -103,7 +103,7 @@ void readFromFile(Student& s)
 	if (s.sizeMarks > 0)
 	{
 		s.marks = new int[s.sizeMarks];
-		for (int i = 0; i < s.sizeMarks; i++)
+		for (size_t i = 0; i < s.sizeMarks; i++)
 		{
 			file >> s.marks[i];
 		}
@@ -126,7 +126,7 @@ void inOrder(Node* root)
 			<< "\nAverage: " << root->s.average
 			<< "\nNumber of marks: " << root->s.sizeMarks
 			<< "\nMarks: ";
-		for (int i = 0; i < root->s.sizeMarks; ++i)
+		for (size_t i = 0; i < root->s.sizeMarks; ++i)
 		{
 			cout << " " << root->s.marks[i];
 		}
@@ -146,7 +146,7 @@ void postOrder(Node* root)
 			<< "\nAverage: " << root->s.average
 			<< "\nNumber of marks: " << root->s.sizeMarks
 			<< "\nMarks: ";
-		for (int i = 0; i < root->s.sizeMarks; ++i)
+		for (size_t i = 0; i < root->s.sizeMarks; ++i)
 		{
 			cout << " " << root->s.marks[i];
 		}
@@ -164,7 +164,7 @@ void preOrder(Node* root)
 			<< "\nAverage: " << root->s.average
 			<< "\nNumber of marks: " << root->s.sizeMarks
 			<< "\nMarks: ";
-		for (int i = 0; i < root->s.sizeMarks; ++i)
+		for (size_t i = 0; i < root->s.sizeMarks; ++i)
 		{
 			cout << " " << root->s.marks[i];
 		}
@@ -240,7 +240,7 @@ void main()
 			<< "\nAverage: " << findMyStudent->s.average
 			<< "\nNumber of marks: " << findMyStudent->s.sizeMarks
 			<< "\nMarks: ";
-		for (int i = 0; i < findMyStudent->s.sizeMarks; ++i)
+		for (size_t i = 0; i < findMyStudent->s.sizeMarks; ++i)
 		{
 			cout << " " << findMyStudent->s.marks[i];
 		}
@@ -251,7 +251,7 @@ void main()
 		cout << "\nStudent does not exist in data structure!" << endl;
 	}
 
-	int sizeOfTree = 0;
+	size_t sizeOfTree = 0;
 	sizeOfTree = treeLevel(root);
 	if (sizeOfTree != 0)
 	{
