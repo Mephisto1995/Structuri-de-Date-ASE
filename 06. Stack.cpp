@@ -18,10 +18,10 @@ fstream file("Student.txt", ios::in);
 class Student
 {
 public:
-	int id;
+	size_t id;
 	char* name;
 	float average;
-	int sizeMarks;
+	size_t sizeMarks;
 	int* marks;
 
 	Student()
