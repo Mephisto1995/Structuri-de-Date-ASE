@@ -10,10 +10,10 @@ fstream file("Student.txt", ios::in);
 class Student
 {
 public:
-	int id;
+	size_t id;
 	char* name;
 	float average;
-	int sizeMarks;
+	size_t sizeMarks;
 	int* marks;
 
 	Student()
@@ -42,11 +42,11 @@ class HashTable
 {
 public:
 	Node** arrayOfNodes;
-	int sizeNodes;
+	size_t sizeNodes;
 	int* keys;
-	int sizeKeys;
+	size_t sizeKeys;
 
-	HashTable(int size)
+	HashTable(size_t size)
 	{
 		this->sizeNodes = size;
 		this->sizeKeys = 0;
@@ -55,14 +55,14 @@ public:
 	}
 };
 
-int getKey()
+size_t getKey()
 {
 	// You can basically make this function to return anything you want,
 	// it's completely up to you.
 	return rand() % 100 + 1;
 }
 
-void addKey(HashTable& table, int key)
+void addKey(HashTable& table, size_t key)
 {
 	if (table.keys == 0)
 	{
@@ -88,7 +88,7 @@ void insert(HashTable& table, Student s)
 {
 	if (table.arrayOfNodes != 0)
 	{
-		int key = getKey();
+		size_t key = getKey();
 		Node* temp = new Node();
 		temp->s = s;
 		addKey(table, key);
@@ -122,7 +122,7 @@ void readFromFile(Student &s)
 	if (s.sizeMarks > 0)
 	{
 		s.marks = new int[s.sizeMarks];
-		for (int i = 0; i < s.sizeMarks; i++)
+		for (size_t i = 0; i < s.sizeMarks; i++)
 		{
 			file >> s.marks[i];
 		}
@@ -137,7 +137,7 @@ void display(HashTable table)
 {
 	if (table.arrayOfNodes != 0 && table.keys != 0)
 	{
-		for (int i = 0; i < table.sizeKeys; i++)
+		for (size_t i = 0; i < table.sizeKeys; i++)
 		{
 			Node* temp = table.arrayOfNodes[table.keys[i]];
 
@@ -163,7 +163,7 @@ void destroy(HashTable& table)
 {
 	if (table.arrayOfNodes != 0 && table.keys != 0)
 	{
-		for (int i = 0; i < table.sizeKeys; i++)
+		for (size_t i = 0; i < table.sizeKeys; i++)
 		{
 			Node* temp = table.arrayOfNodes[table.keys[i]];
 
@@ -204,7 +204,7 @@ void main()
 
 	HashTable table(length);
 	table.arrayOfNodes = new Node*[table.sizeNodes]; // or length
-	for (int i = 0; i < table.sizeNodes; i++) //or i < length
+	for (size_t i = 0; i < table.sizeNodes; i++) //or i < length
 	{
 		table.arrayOfNodes[i] = 0;
 	}
