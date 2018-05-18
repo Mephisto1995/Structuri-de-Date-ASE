@@ -10,10 +10,10 @@ fstream file("Text.txt", ios::in);
 class Student
 {
 public:
-	int id;
+	size_t id;
 	char* name;
 	float average;
-	int sizeMarks;
+	size_t sizeMarks;
 	int* marks;
 
 	Student()
@@ -32,7 +32,7 @@ public:
 	Node * left;
 	Student s;
 	Node* right;
-	int bf;
+	size_t bf;
 
 	Node()
 	{
@@ -46,8 +46,8 @@ int treeLevels(Node* root)
 {
 	if (root)
 	{
-		int i = 1 + treeLevels(root->left);
-		int j = 1 + treeLevels(root->right);
+		size_t i = 1 + treeLevels(root->left);
+		size_t j = 1 + treeLevels(root->right);
 		if (i > j)return i;
 		else return j;
 	}
@@ -124,7 +124,7 @@ void displayInOrder(Node* root)
 			<< "\nAverage: " << root->s.average
 			<< "\nNumber of marks: " << root->s.sizeMarks
 			<< "\nMarks: ";
-		for (int i = 0; i < root->s.sizeMarks; ++i)
+		for (size_t i = 0; i < root->s.sizeMarks; ++i)
 		{
 			cout << " " << root->s.marks[i];
 		}
@@ -224,7 +224,7 @@ void displayPreOrder(Node* root)
 			<< "\nAverage: " << root->s.average
 			<< "\nNumber of marks: " << root->s.sizeMarks
 			<< "\nMarks: ";
-		for (int i = 0; i < root->s.sizeMarks; ++i)
+		for (size_t i = 0; i < root->s.sizeMarks; ++i)
 		{
 			cout << " " << root->s.marks[i];
 		}
