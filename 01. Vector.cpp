@@ -10,10 +10,10 @@ fstream file("Student.txt", ios::in);
 class Student
 {
 public:
-	int id;
+	size_t id;
 	char* name;
 	float average;
-	int sizeMarks;
+	size_t sizeMarks;
 	int* marks;
 
 	Student()
@@ -30,7 +30,7 @@ class Vector
 {
 public:
 	Student* arrayOfStudents;
-	int size;
+	size_t size;
 
 	Vector()
 	{
@@ -77,7 +77,7 @@ void readFromFile(Student &s)
 	if (s.sizeMarks > 0)
 	{
 		s.marks = new int[s.sizeMarks];
-		for (int i = 0; i < s.sizeMarks; i++)
+		for (size_t i = 0; i < s.sizeMarks; i++)
 		{
 			file >> s.marks[i];
 		}
@@ -92,7 +92,7 @@ void display(Vector vector)
 {
 	if (vector.arrayOfStudents != 0)
 	{
-		for (int i = 0; i < vector.size; i++)
+		for (size_t i = 0; i < vector.size; i++)
 		{
 			cout << "\nID: " << vector.arrayOfStudents[i].id;
 			cout << "\nName: " << vector.arrayOfStudents[i].name;
@@ -112,7 +112,7 @@ void destroy(Vector& vector)
 {
 	if (vector.arrayOfStudents != 0)
 	{
-		for (int i = 0; i < vector.size; i++)
+		for (size_t i = 0; i < vector.size; i++)
 		{
 			delete[] vector.arrayOfStudents[i].name;
 			delete[] vector.arrayOfStudents[i].marks;
@@ -137,7 +137,7 @@ void main()
 	Vector vector;
 	fstream getFileLength("Student.txt", ios::in);
 	getFileLength.seekg(0, ios::end);
-	int length = getFileLength.tellg();
+	size_t length = getFileLength.tellg();
 	vector.arrayOfStudents = new Student[length];
 	Student s;
 	
