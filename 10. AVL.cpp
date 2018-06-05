@@ -10,10 +10,10 @@ fstream file("StudentBST.txt", ios::in);
 class Student
 {
 public:
-	size_t id;
+	int id;
 	char* name;
 	float average;
-	size_t sizeMarks;
+	int sizeMarks;
 	int* marks;
 
 	Student()
@@ -32,7 +32,7 @@ public:
 	Node * left;
 	Student s;
 	Node* right;
-	size_t bf;
+	int bf;
 
 	Node()
 	{
@@ -46,8 +46,8 @@ int treeLevels(Node* root)
 {
 	if (root)
 	{
-		size_t i = 1 + treeLevels(root->left);
-		size_t j = 1 + treeLevels(root->right);
+		int i = 1 + treeLevels(root->left);
+		int j = 1 + treeLevels(root->right);
 		if (i > j)return i;
 		else return j;
 	}
@@ -124,7 +124,7 @@ void displayInOrder(Node* root)
 			<< "\nAverage: " << root->s.average
 			<< "\nNumber of marks: " << root->s.sizeMarks
 			<< "\nMarks: ";
-		for (size_t i = 0; i < root->s.sizeMarks; ++i)
+		for (int i = 0; i < root->s.sizeMarks; ++i)
 		{
 			cout << " " << root->s.marks[i];
 		}
@@ -224,7 +224,7 @@ void displayPreOrder(Node* root)
 			<< "\nAverage: " << root->s.average
 			<< "\nNumber of marks: " << root->s.sizeMarks
 			<< "\nMarks: ";
-		for (size_t i = 0; i < root->s.sizeMarks; ++i)
+		for (int i = 0; i < root->s.sizeMarks; ++i)
 		{
 			cout << " " << root->s.marks[i];
 		}
@@ -271,5 +271,5 @@ void main()
 	}
 
 	displayPreOrder(root);
-	getch();
+	system("Pause");
 }
