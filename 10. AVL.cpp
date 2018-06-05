@@ -5,7 +5,7 @@ using namespace std;
 
 #pragma warning(disable:4996)
 
-fstream file("Text.txt", ios::in);
+fstream file("StudentBST.txt", ios::in);
 
 class Student
 {
