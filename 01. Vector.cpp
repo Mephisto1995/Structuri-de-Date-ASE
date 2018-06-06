@@ -55,10 +55,25 @@ void add(Vector &vector, Student s)
 			Student* copyVector = new Student[vector.size + 1];
 			for (int i = 0; i < vector.size; i++)
 			{
-				copyVector[i] = vector.arrayOfStudents[i];
+				// Necessary deep copy in this situation: we are copying objects, not simple variables (int, float, etc.);
+				copyVector[i].average = vector.arrayOfStudents[i].average;
+				copyVector[i].id = vector.arrayOfStudents[i].id;
+				copyVector[i].sizeMarks = vector.arrayOfStudents[i].sizeMarks;
+				copyVector[i].name = new char[strlen(vector.arrayOfStudents[i].name) + 1];
+				strcpy(copyVector[i].name, vector.arrayOfStudents[i].name);
+				copyVector[i].marks = new int[vector.arrayOfStudents[i].sizeMarks];
+				for (int j = 0; j < vector.arrayOfStudents[i].sizeMarks; j++)
+				{
+					copyVector[i].marks[j] = vector.arrayOfStudents[i].marks[j];
+				}
+				delete[] vector.arrayOfStudents[i].name;
+				delete[] vector.arrayOfStudents[i].marks;
+				vector.arrayOfStudents[i].name = nullptr;
+				vector.arrayOfStudents[i].marks = nullptr;
 			}
 			copyVector[vector.size] = s;
 			delete[] vector.arrayOfStudents;
+			vector.arrayOfStudents = nullptr;
 			vector.arrayOfStudents = copyVector;
 			++vector.size;
 		}
