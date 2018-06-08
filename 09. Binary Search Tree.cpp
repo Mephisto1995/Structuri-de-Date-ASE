@@ -139,8 +139,8 @@ void postOrder(Node* root)
 {
 	if (root)
 	{
-		inOrder(root->left);
-		inOrder(root->right);
+		postOrder(root->left);
+		postOrder(root->right);
 		cout << "\nID: " << root->s.id
 			<< "\nName: " << root->s.name
 			<< "\nAverage: " << root->s.average
@@ -169,8 +169,8 @@ void preOrder(Node* root)
 			cout << " " << root->s.marks[i];
 		}
 		cout << "\n=====================";
-		inOrder(root->left);
-		inOrder(root->right);
+		preOrder(root->left);
+		preOrder(root->right);
 	}
 }
 
