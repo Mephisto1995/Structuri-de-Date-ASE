@@ -73,7 +73,6 @@ void add(Vector &vector, Student s)
 			}
 			copyVector[vector.size] = s;
 			delete[] vector.arrayOfStudents;
-			vector.arrayOfStudents = nullptr;
 			vector.arrayOfStudents = copyVector;
 			++vector.size;
 		}
