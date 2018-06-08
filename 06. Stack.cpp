@@ -129,6 +129,17 @@ void destroyStack(Stack* &stack)
 	}
 }
 
+void pop(Stack* &stack)
+{
+	Stack* temp = stack->next;
+	delete[] stack->s.name;
+	delete[] stack->s.marks;
+	stack->s.name = nullptr;
+	stack->s.marks = nullptr;
+	delete stack;
+	stack = temp;
+}
+
 void main()
 {
 	Student s;
