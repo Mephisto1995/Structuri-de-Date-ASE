@@ -129,6 +129,17 @@ void destroyList(Queue* &queue)
 	}
 }
 
+void pop(Node* &start)
+{
+	Node* temp = start->next;
+	delete[] start->s.name;
+	delete[] start->s.marks;
+	start->s.name = nullptr;
+	start->s.marks = nullptr;
+	delete start;
+	start = temp;
+}
+
 void main()
 {
 	Student s;
