@@ -129,9 +129,9 @@ void destroyList(Queue* &queue)
 	}
 }
 
-void pop(Node* &start)
+void pop(Queue* &start)
 {
-	Node* temp = start->next;
+	Queue* temp = start->next;
 	delete[] start->s.name;
 	delete[] start->s.marks;
 	start->s.name = nullptr;
