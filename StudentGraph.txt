@@ -1,0 +1,4 @@
+0 Vlad 10
+1 Anastasia 10
+2 Iulia 10
+3 Gabi 2
