@@ -140,7 +140,8 @@ struct Vector
 		}
 	}
 
-	void RemoveByID(const int& id)
+	// Still working on this function, currently not working as intended;
+	/*void RemoveByID(const int& id)
 	{
 		if (mVector != nullptr)
 		{
@@ -181,7 +182,7 @@ struct Vector
 				}
 			}
 		}
-	}
+	}*/
 
 	friend std::ostream& operator<<(std::ostream& stream, const Vector& vector);
 };
