@@ -205,7 +205,7 @@ struct LinkedList
 					// Make the first node point to our next node in our list
 					node = temp;
 
-					// Also update our backup node, in case we might remove more students with same id (hypothetical scenario)
+					// Also update our backup node, good practice
 					backupFirstNode = temp;
 
 					break;
