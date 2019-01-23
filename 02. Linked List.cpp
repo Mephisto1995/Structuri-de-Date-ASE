@@ -76,6 +76,23 @@ struct Student
 
 		return *this;
 	}
+	
+	void PopulateStudent(Student& s)
+	{
+		char buffer[BUFFER_SIZE];
+		file >> s.mID;
+		file >> buffer;
+		s.mName = new char[strlen(buffer) + 1];
+		strcpy(s.mName, buffer);
+		file >> s.mAverage;
+		file >> s.mNumberOfMarks;
+		s.mMarks = new int[s.mNumberOfMarks];
+
+		for (int index = 0; index < s.mNumberOfMarks; index++)
+		{
+			file >> s.mMarks[index];
+		}
+	}
 
 	void ReleaseMemory()
 	{
@@ -114,171 +131,148 @@ std::ostream& operator<<(std::ostream& stream, const Student& s)
 	return stream;
 }
 
-void PopulateStudent(Student& s)
+struct Node
 {
-	char buffer[BUFFER_SIZE];
-	file >> s.mID;
-	file >> buffer;
-	s.mName = new char[strlen(buffer) + 1];
-	strcpy(s.mName, buffer);
-	file >> s.mAverage;
-	file >> s.mNumberOfMarks;
-	s.mMarks = new int[s.mNumberOfMarks];
+	Student mStudent;
+	Node* mNext;
 
-	for (int index = 0; index < s.mNumberOfMarks; index++)
+	Node()
 	{
-		file >> s.mMarks[index];
+		mNext = nullptr;
 	}
-}
+};
 
 struct LinkedList
 {
-	Student s;
-	LinkedList* node;
+	Node* mNode;
 
 	LinkedList() :
-		node(nullptr)
+		mNode(nullptr)
 	{}
 
-	LinkedList(const LinkedList& other) = delete;
-	LinkedList& operator=(const LinkedList& other) = delete;
-
-	void Insert(const Student& s)
+	void Insert(const Student& student)
 	{
-		LinkedList* temp = new LinkedList;
-		temp->s = s;
-		if (this->node == nullptr)
+		Node* temp = new Node;
+		temp->mStudent = student;
+		if (mNode == nullptr)
 		{
-			// If list is empty case
-			node = temp;
+			mNode = temp;
 		}
 		else
 		{
-			LinkedList* temp2 = node;
-			while (temp2->node != nullptr)
+			Node* traverseNode = mNode;
+			while (traverseNode->mNext != nullptr)
 			{
-				temp2 = temp2->node;
+				traverseNode = traverseNode->mNext;
 			}
-			temp2->node = temp;
+			traverseNode->mNext = temp;
 		}
 	}
 
 	void Display()
 	{
-		LinkedList* temp = node;
-		while (temp != nullptr)
+		Node* traverseNode = mNode;
+		while (traverseNode != nullptr)
 		{
-			std::cout << temp->s << std::endl;
-			temp = temp->node;
+			cout << traverseNode->mStudent << endl;
+			traverseNode = traverseNode->mNext;
 		}
 	}
 
 	void ReleaseMemory()
 	{
-		while (node != nullptr)
+		while (mNode != nullptr)
 		{
-			LinkedList* nextNode = node->node; // setting nextNode to be the next element in our list
-			node->s.ReleaseMemory();
-			delete node;
-			node = nextNode;
+			Node* nextNode = mNode->mNext;
+			mNode->mStudent.ReleaseMemory();
+			delete mNode;
+			mNode = nextNode;
 		}
 	}
 
 	void RemoveByID(const int& id)
 	{
-		LinkedList* backupFirstNode = node;
+		Node* backupMemberNode = mNode;
 		bool isFirstElement = true;
-		while (node != nullptr)
+		while (mNode != nullptr)
 		{
-			if (node->s.mID == id)
+			if (mNode->mStudent.mID == id)
 			{
 				// Do we remove the first element from our list?
-				if (isFirstElement == true)
+				if (isFirstElement)
 				{
-					// Make a backup temp node to access the next element in our list
-					LinkedList* temp = node->node;
+					// Make the backup member node to point to the next element in our list
+					backupMemberNode = mNode->mNext;
 
 					// Delete the first node
-					node->s.ReleaseMemory();
-					delete node;
+					mNode->mStudent.ReleaseMemory();
+					delete mNode;
 
-					// Make the first node point to our next node in our list
-					node = temp;
-
-					// Also update our backup node, good practice
-					backupFirstNode = temp;
-
-					break;
+					// Make the member node of our list to point to our backup member node which is our next node in our list
+					mNode = backupMemberNode;
+					return;
 				}
 
 				// Do we remove the last element from our list?
-				else if(node->node == nullptr)
+				else if (mNode->mNext == nullptr)
 				{
 					// We need a temp node to point to our second to last node, so that node can become last node;
-					LinkedList* temp = backupFirstNode;
+					Node* traverseNode = backupMemberNode;
 
 					// We traverse the list until we position our temp node on the second to last node in our list
-					while (temp->node != node)
+					while (traverseNode->mNext != mNode)
 					{
-						temp = temp->node;
+						traverseNode = traverseNode->mNext;
 					}
-
-					// We delete the last node
-					node->s.ReleaseMemory();
-					delete node;
 
 					// We destroy the connection between the second to last node and last node, 
 					//by making the first mentioned to point to nullptr, thus making it the last node in our list
-					temp->node = nullptr;
+					traverseNode->mNext = nullptr;
 
-					break;
+					// We delete the last node
+					mNode->mStudent.ReleaseMemory();
+					delete mNode;
+
+					// Reset
+					mNode = backupMemberNode;
+					return;
 				}
-
 				else
 				{
-					// We remove an element in between our first and last elements from our list
-
-					// We need a temp to point to the node before the one we want to delete
-					LinkedList* temp = backupFirstNode;
-
-					while (temp->node != node)
+					Node* traverseNode = backupMemberNode;
+					while (traverseNode->mNext != mNode)
 					{
-						temp = temp->node;
+						traverseNode = traverseNode->mNext;
 					}
-
-					// We destroy the connection between our temp node and the node we want to remove, 
-					// by making our temp node to point to the next node of the removal one
-					temp->node = node->node;
-
-					// Remove the node we want
-					node->s.ReleaseMemory();
-					delete node;
-
-					break;
+					traverseNode->mNext = mNode->mNext;
+					mNode->mStudent.ReleaseMemory();
+					delete mNode;
+					mNode = backupMemberNode;
+					return;
 				}
 			}
-
 			isFirstElement = false;
-			node = node->node; // Accessing next node
+			mNode = mNode->mNext;
 		}
 
-		// Reset the node to point to the first node in our list
-		node = backupFirstNode;
+		// This is needed in case we run into an use case where the student with the given
+		// id is not in our linked list.
+		mNode = backupMemberNode;
 	}
 };
 
 void main()
 {
 	LinkedList list;
-	Student student;
+	Student s;
 	while (!file.eof())
 	{
-		PopulateStudent(student);
-		list.Insert(student);
-		student.ReleaseMemory();
+		s.PopulateStudent();
+		list.Insert(s);
+		s.ReleaseMemory();
 	}
 	list.Display();
-	list.RemoveByID(300);
+	list.RemoveByID(600);
 	list.Display();
 	list.ReleaseMemory();
 }
