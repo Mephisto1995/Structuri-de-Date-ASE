@@ -167,7 +167,7 @@ private:
 	pNode mEnd;
 };
 
-/*void main()
+void main()
 {
 	List list;
 	
@@ -187,38 +187,4 @@ private:
 	list.Display();
 
 	list.Clear();
-}*/
-
-class Singleton
-{
-public:
-	static Singleton& GetInstance()
-	{
-		static Singleton instance;
-		return instance;
-	}
-
-	void Foo()
-	{
-
-	}
-
-	void Bar()
-	{
-
-	}
-
-private:
-	Singleton();
-};
-
-class A : public Singleton
-{
-
-};
-
-void main()
-{
-	Singleton::GetInstance().Foo();
-	Singleton::GetInstance().Bar();
 }
